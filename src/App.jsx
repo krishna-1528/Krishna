@@ -21,7 +21,7 @@ const socialLinks = [
     ),
   },
   {
-    href: 'https://www.linkedin.com',
+    href: 'https://www.linkedin.com/in/krishna-patel-4257582a1/',
     label: 'LinkedIn',
     icon: (
       <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -40,71 +40,43 @@ const socialLinks = [
   },
 ];
 
-const aboutHighlights = ['Software', 'Hardware', 'Art', 'Experiments'];
+// --- YOUR UPDATED ARTIFACT DATA ---
+const portfolioData = {
+  about: "19-year-old Electronics Engineering student at Rashtriya Raksha University specializing in VLSI Design, Full-Stack Web Development, and Hardware Automation. Passionate about bridging the gap between hardware interfaces and modern web applications.",
+  experience: [
+    {
+      id: 'trinnovate',
+      title: 'Engineering Intern',
+      company: 'Trinnovate',
+      date: 'Feb 2025 - Present',
+      desc: 'Developing a full-stack visualization platform and automating data workflows for industrial motor diagnostics using Python and React.'
+    }
+  ],
+  projects: [
+    { 
+      id: 'krishi', 
+      title: 'Krishi-Path', 
+      subtitle: 'Agricultural Logistics Platform',
+      tech: 'React, ESP32, LoRaWAN, Edge AI', 
+      desc: 'Developed an IoT "Black Box" system to monitor crop health and environmental data during transit, featuring a real-time React dashboard.' 
+    },
+    { 
+      id: 'hydro', 
+      title: 'HydroSense', 
+      subtitle: 'Smart India Hackathon 2025 (Rank 9)',
+      tech: 'IoT, TinyML, Hardware', 
+      desc: 'Led the development of an IoT microplastic sensor platform utilizing TinyML for advanced environmental monitoring.' 
+    }
+  ],
+  skills: ['React.js', 'Vite', 'Tailwind CSS', 'Framer Motion', 'Python & Selenium', 'Verilog & Xilinx Vivado', 'UI/UX Design'],
+  links: {
+    linkedin: 'https://www.linkedin.com/in/krishna-patel-4257582a1/',
+    github: 'https://github.com/krishna-1528',
+    email: 'your-email@example.com' // Replace with your actual email
+  }
+};
 
-const experienceRows = [
-  {
-    role: 'Software Engineer',
-    org: 'Google',
-    period: '2025 - Present',
-    note: 'Building ML systems and product-facing tooling at scale.',
-  },
-  {
-    role: 'Designer / Builder',
-    org: 'Independent',
-    period: '2023 - 2025',
-    note: 'Shaping calm interfaces, prototypes, and visual systems.',
-  },
-  {
-    role: 'Creative Technologist',
-    org: 'Personal Work',
-    period: 'Ongoing',
-    note: 'Mixing code, design, and playful interaction in small projects.',
-  },
-];
 
-const softwareProjects = [
-  {
-    name: 'Portfolio V2',
-    summary: 'A clean React and Vite portfolio with a minimal, editorial feel.',
-    stack: 'React, Vite, CSS',
-  },
-  {
-    name: 'Interaction Lab',
-    summary: 'Small interface experiments focused on motion and usability.',
-    stack: 'Framer Motion, UI',
-  },
-  {
-    name: 'Content System',
-    summary: 'A reusable personal content structure for case studies and notes.',
-    stack: 'Design System, CMS',
-  },
-];
-
-const hardwareProjects = [
-  {
-    name: 'Custom PC Build',
-    summary: 'A white-themed build inspired by clean industrial hardware design.',
-  },
-  {
-    name: 'LED Bracelet',
-    summary: 'A wearable audio-reactive light experiment for live events.',
-  },
-  {
-    name: 'Retro Cyberdeck',
-    summary: 'A compact handheld project mixing nostalgia and practical hardware.',
-  },
-];
-
-const artPieces = ['fishy', 'dali', 'japan', 'space', '11th grade', 'cordyceps'];
-
-function SocialIconLink({ href, label, icon }) {
-  return (
-    <a className="social-link" href={href} aria-label={label} target="_blank" rel="noreferrer">
-      {icon}
-    </a>
-  );
-}
 
 function DottedPortrait() {
   return (
