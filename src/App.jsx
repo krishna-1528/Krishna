@@ -12,7 +12,7 @@ const socialLinks = [
     ),
   },
   {
-    href: 'https://github.com',
+    href: 'https://github.com/krishna-1528',
     label: 'GitHub',
     icon: (
       <svg viewBox="0 0 24 24" aria-hidden="true">
