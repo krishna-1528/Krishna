@@ -1,6 +1,6 @@
 # Krishna - Personal Portfolio
 
-A modern, elegant portfolio website inspired by [gazijarin.com](https://gazijarin.com). Built with React, Vite, Tailwind CSS, and Framer Motion.
+A modern, elegant portfolio website built with React, Vite, Tailwind CSS, and Framer Motion.
 
 ## 🎨 Design Features
 
