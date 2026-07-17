@@ -5,7 +5,7 @@ import './App.css';
 // Social links configuration
 const socialLinks = [
   {
-    href: 'mailto:krishna@example.com',
+    href: 'mailto:krishna.patel.vlsi@gmail.com',
     label: 'Email',
     icon: (
       <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
@@ -31,6 +31,15 @@ const socialLinks = [
       </svg>
     ),
   },
+  {
+    href: 'https://x.com/Kr15is28',
+    label: 'Twitter',
+    icon: (
+      <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+      </svg>
+    ),
+  }
 ];
 
 // --- YOUR UPDATED ARTIFACT DATA ---
@@ -68,7 +77,7 @@ const portfolioData = {
   links: {
     linkedin: 'https://www.linkedin.com/in/krishna-patel-4257582a1/',
     github: 'https://github.com/krishna-1528',
-    email: 'your-email@example.com' // Replace with your actual email
+    email: 'krishna.patel.vlsi@gmail.com' // Replace with your actual email
   }
 };
 
@@ -266,6 +275,8 @@ function App() {
           title="Bridging Software & Hardware"
           description="I am a frontend developer and IoT enthusiast, with a focus on creating systems that matter."
         />
+
+
         <motion.div
           className="about-content"
           initial={{ opacity: 0, y: 20 }}
@@ -273,6 +284,8 @@ function App() {
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.7 }}
         >
+
+
           <div className="about-text">
             <p>
               As an Electronics Engineering student at Rashtriya Raksha University, I've developed a unique blend of expertise in hardware design and modern web development. My work spans from embedded systems and IoT platforms to full-stack web applications.
