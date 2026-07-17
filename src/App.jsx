@@ -175,8 +175,8 @@ function App() {
           <p className="eyebrow">Software engineer and artist</p>
           <h1>hi, krishna here.</h1>
           <p className="hero-text">
-            Minimal portfolio inspired by the calm hierarchy of Gazi Jarin&apos;s site: clean typography, clear sections,
-            and enough breathing room for you to customize it your own way.
+            Minimal portfolio with clean typography, clear sections,
+            and enough breathing room.
           </p>
 
           <div className="hero-actions">
@@ -206,7 +206,7 @@ function App() {
               the page minimal, readable, and easy to adapt.
             </p>
             <p>
-              You can replace the copy, images, and project content later without changing the overall structure.
+              Heyy there!
             </p>
           </div>
           <div className="about-portrait">
