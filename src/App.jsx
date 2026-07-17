@@ -227,7 +227,7 @@ function App() {
             <p className="eyebrow">Software engineer and artist</p>
             <h1>hi, krishna here.</h1>
             <p className="hero-text">
-              Minimal portfolio inspired by the calm hierarchy of Gazi Jarin&apos;s site: clean typography, clear sections,
+              Minimal portfolio with clean typography, clear sections,
               and enough breathing room for you to customize it your own way.
             </p>
 
@@ -264,7 +264,7 @@ function App() {
         <SectionHeading
           eyebrow="About"
           title="Bridging Software & Hardware"
-          description="I specialize in full-stack development and IoT solutions, with a focus on creating systems that matter."
+          description="I am a frontend developer and IoT enthusiast, with a focus on creating systems that matter."
         />
         <motion.div
           className="about-content"
@@ -372,7 +372,7 @@ function App() {
           transition={{ duration: 0.5 }}
         >
           Designed & built by Krishna. Inspired by{' '}
-          <a href="https://gazijarin.com" target="_blank" rel="noreferrer">
+          <a href="" target="_blank" rel="noreferrer">
             gazijarin.com
           </a>
         </motion.p>
