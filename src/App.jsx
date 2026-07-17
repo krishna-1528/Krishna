@@ -288,7 +288,7 @@ function App() {
               <span className="label">Major Projects</span>
             </div>
             <div className="highlight">
-              <span className="number">2</span>
+              <span className="number">1</span>
               <span className="label">Years Experience</span>
             </div>
           </div>
