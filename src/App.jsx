@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import './App.css'; // We keep this for any base resets, but Tailwind will do the heavy lifting now
+import './App.css';
 
 // Social links configuration
 const socialLinks = [
@@ -42,8 +42,9 @@ const socialLinks = [
   }
 ];
 
-// Portfolio Data
+// --- YOUR UPDATED ARTIFACT DATA ---
 const portfolioData = {
+  about: "19-year-old Electronics Engineering student at Rashtriya Raksha University specializing in VLSI Design, Full-Stack Web Development, and Hardware Automation. Passionate about bridging the gap between hardware interfaces and modern web applications.",
   experience: [
     {
       id: 'trinnovate',
@@ -58,14 +59,14 @@ const portfolioData = {
       id: 'krishi', 
       title: 'Krishi-Path', 
       subtitle: 'Agricultural Logistics Platform',
-      tech: ['React', 'ESP32', 'LoRaWAN', 'Edge AI'], 
+      tech: ['React', 'ESP32', 'LoRaWAN', 'Edge AI'], // Formatted as array for mapping
       desc: 'Developed an IoT "Black Box" system to monitor crop health and environmental data during transit, featuring a real-time React dashboard.' 
     },
     { 
       id: 'hydro', 
       title: 'HydroSense', 
       subtitle: 'Smart India Hackathon 2025 (College Rank 9)',
-      tech: ['IoT', 'TinyML', 'Hardware'], 
+      tech: ['IoT', 'TinyML', 'Hardware'], // Formatted as array for mapping
       desc: 'Led the development of an IoT microplastic sensor platform utilizing TinyML for advanced environmental monitoring.' 
     }
   ],
@@ -73,22 +74,106 @@ const portfolioData = {
     { category: 'Web Development', items: ['React.js', 'Vite', 'Tailwind CSS', 'Framer Motion', 'UI/UX Design'] },
     { category: 'Hardware & Scripting', items: ['Python & Selenium', 'Verilog & Xilinx Vivado'] }
   ],
+  links: {
+    linkedin: 'https://www.linkedin.com/in/krishna-patel-4257582a1/',
+    github: 'https://github.com/krishna-1528',
+    email: 'krishna.patel.vlsi@gmail.com' // Replace with your actual email
+  }
 };
 
+
+// Component: Social Icon Link (Renamed from DottedPortrait)
+function SocialIconLink({ href, label, icon }) {
+  return (
+    <a href={href} target="_blank" rel="noreferrer" className="social-link" title={label}>
+      {icon}
+    </a>
+  );
+}
+
 // Component: Section Heading
-function SectionHeading({ title }) {
+function SectionHeading({ eyebrow, title, description }) {
   return (
     <motion.div
+      className="section-heading"
       initial={{ opacity: 0, y: 10 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.3 }}
       transition={{ duration: 0.5 }}
-      className="mb-12 border-b border-slate-700/50 pb-4"
     >
-      <h2 className="text-3xl font-semibold text-slate-200 tracking-tight">
-        <span className="text-teal-400 mr-3">/</span>
-        {title}
-      </h2>
+      <p className="eyebrow">{eyebrow}</p>
+      <h2>{title}</h2>
+      {description && <p>{description}</p>}
+    </motion.div>
+  );
+}
+
+// Component: Project Card (Props mapped to match portfolioData)
+function ProjectCard({ title, subtitle, desc, tech, index }) {
+  return (
+    <motion.article
+      className="project-card"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      whileHover={{ y: -4 }}
+    >
+      <div className="project-header">
+        <div>
+          <h3>{title}</h3>
+          <p className="project-subtitle">{subtitle}</p>
+        </div>
+        <span className="project-number">0{index + 1}</span>
+      </div>
+      <p className="project-details">{desc}</p>
+      <div className="tech-tags">
+        {tech.map((t) => (
+          <span key={t} className="tech-tag">{t}</span>
+        ))}
+      </div>
+    </motion.article>
+  );
+}
+
+// Component: Experience Item (Props mapped to match portfolioData)
+function ExperienceItem({ title, company, date, desc }) {
+  return (
+    <motion.article
+      className="experience-item"
+      initial={{ opacity: 0, x: -10 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: 0.5 }}
+    >
+      <div className="experience-header">
+        <div>
+          <p className="experience-role">{title}</p>
+          <h3>{company}</h3>
+        </div>
+        <span className="experience-period">{date}</span>
+      </div>
+      <p className="experience-description">{desc}</p>
+    </motion.article>
+  );
+}
+
+// Component: Skill Category
+function SkillCategory({ category, items }) {
+  return (
+    <motion.div
+      className="skill-category"
+      initial={{ opacity: 0, y: 10 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: 0.5 }}
+    >
+      <h4>{category}</h4>
+      <div className="skill-list">
+        {items.map((skill) => (
+          <span key={skill}>{skill}</span>
+        ))}
+      </div>
     </motion.div>
   );
 }
@@ -100,169 +185,211 @@ function App() {
   const scrollToSection = (id) => {
     setActiveSection(id);
     const element = document.getElementById(id);
-    // Offset for the fixed navbar
-    const y = element.getBoundingClientRect().top + window.scrollY - 100;
-    window.scrollTo({ top: y, behavior: 'smooth' });
+    element?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
-    // The main wrapper enforcing the minimal dark theme across the whole site
-    <main className="bg-[#0b1120] text-slate-400 font-sans min-h-screen selection:bg-teal-400/30 selection:text-teal-200">
-      
-      {/* Navigation - Styled like the reference image */}
-      <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 py-5 bg-[#0b1120]/90 backdrop-blur-md border-b border-slate-800/50">
-        <div className="flex items-center gap-10">
-          <motion.div 
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }} 
-            className="text-slate-200 font-semibold text-lg tracking-wide cursor-pointer"
-            onClick={() => scrollToSection('home')}
-          >
-            Krishna Patel
-          </motion.div>
-          
-          <div className="hidden md:flex gap-6 text-sm font-medium text-slate-400">
-            <button onClick={() => scrollToSection('home')} className="hover:text-teal-400 transition-colors">Home</button>
-            <button onClick={() => scrollToSection('about')} className="hover:text-teal-400 transition-colors">About</button>
-            <button onClick={() => scrollToSection('experience')} className="hover:text-teal-400 transition-colors">Experience</button>
-            <button onClick={() => scrollToSection('projects')} className="hover:text-teal-400 transition-colors">Software</button>
-          </div>
-        </div>
+    <main className="portfolio-container">
+      {/* Background elements */}
+      <div className="gradient-bg gradient-1" />
+      <div className="gradient-bg gradient-2" />
+      <div className="dot-grid" />
 
-        <div className="flex items-center gap-5">
+      {/* Navigation */}
+      <nav className="navbar">
+        <div className="nav-brand">
+          <motion.h1
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8 }}
+          >
+            Krishna
+          </motion.h1>
+        </div>
+        <div className="nav-social">
           {socialLinks.map((link) => (
-            <a key={link.label} href={link.href} target="_blank" rel="noreferrer" className="w-5 h-5 text-slate-400 hover:text-teal-400 transition-colors">
-              {link.icon}
-            </a>
+            <SocialIconLink key={link.label} {...link} />
           ))}
         </div>
       </nav>
 
-      <div className="max-w-5xl mx-auto px-6 sm:px-12 pt-32 pb-24 space-y-40">
-        
-        {/* HERO SECTION - Minimal Split Layout */}
-        <section id="home" className="min-h-[70vh] flex items-center justify-center">
-          <div className="w-full flex flex-col md:flex-row items-center justify-between gap-12 md:gap-20">
-            
-            {/* Left: Avatar with user-requested swirl */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              className="w-64 h-64 md:w-[28rem] md:h-[28rem] flex-shrink-0"
-            >
-              <motion.img 
-                src="/image_2c7b87.png" 
-                alt="Krishna's Tech Avatar"
-                whileHover={{ rotate: 360 }}
-                transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-                className="w-full h-full object-contain drop-shadow-[0_0_20px_rgba(45,212,191,0.15)] opacity-80"
-              />
-            </motion.div>
-
-            {/* Right: Text Content */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="flex flex-col items-start max-w-lg"
-            >
-              <h1 className="text-5xl md:text-6xl font-semibold text-slate-200 tracking-tight mb-6">
-                hi, <span className="text-teal-400">krishna</span> here.
-              </h1>
-              <p className="text-lg md:text-xl text-slate-400 leading-relaxed mb-8">
-                Electronics Engineering student at RRU. I build hardware automation workflows by day and make full-stack projects at the intersection of tech and design by night.
-              </p>
-              
-              <a href="mailto:krishna.patel.vlsi@gmail.com" className="inline-flex items-center gap-2 px-5 py-2.5 border border-teal-400/50 text-teal-400 rounded hover:bg-teal-400/10 transition-colors font-medium text-sm">
-                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M4 6h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1Zm0 2v.3l8 5.2 8-5.2V8H4Zm16 8V10l-7.4 4.8a1 1 0 0 1-1.2 0L4 10v6h16Z" />
-                </svg>
-                Say hi!
-              </a>
-            </motion.div>
-          </div>
-        </section>
-
-        {/* ABOUT SECTION */}
-        <section id="about" className="scroll-mt-32">
-          <SectionHeading title="about me" />
+      {/* Hero Section */}
+      <section className="hero" id="home">
+        <div className="hero-content">
+          
           <motion.div
             initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.7 }}
-            className="text-lg leading-relaxed max-w-3xl space-y-6"
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <p>
-              As a 19-year-old student specializing in VLSI Design, I've developed a unique blend of expertise bridging hardware architecture and modern web development.
-            </p>
-            <p>
-              Whether I am routing signals on an ESP32 or structuring state in React, my goal is always to build clean, efficient systems that matter.
-            </p>
+            <p className="hero-subtitle">Full-Stack Developer & Hardware Enthusiast</p>
+            <h2 className="hero-title">
+              Building elegant solutions
+              <br />
+              <span className="accent">at the intersection</span>
+              <br />
+              of software and hardware
+            </h2>
           </motion.div>
-        </section>
 
-        {/* EXPERIENCE SECTION */}
-        <section id="experience" className="scroll-mt-32">
-          <SectionHeading title="experience" />
-          <div className="space-y-12">
-            {portfolioData.experience.map((exp) => (
-              <motion.div 
-                key={exp.id}
-                initial={{ opacity: 0, x: -10 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                className="group flex flex-col md:flex-row md:items-baseline gap-4 md:gap-12"
-              >
-                <span className="text-sm font-mono text-slate-500 md:w-48 flex-shrink-0">{exp.date}</span>
-                <div>
-                  <h3 className="text-xl font-medium text-slate-200">{exp.title} <span className="text-teal-400">@ {exp.company}</span></h3>
-                  <p className="mt-3 leading-relaxed">{exp.desc}</p>
-                </div>
-              </motion.div>
-            ))}
+          <div className="hero-copy">
+            <p className="eyebrow">Software engineer and artist</p>
+            <h1>hi, krishna here.</h1>
+            <p className="hero-text">
+              Minimal portfolio with clean typography, clear sections,
+              and enough breathing room for you to customize it your own way.
+            </p>
+
+            <div className="hero-actions">
+              <button className="button button-primary" onClick={() => scrollToSection('about')}>Say hi</button>
+              <button className="button button-secondary" onClick={() => scrollToSection('projects')}>View work</button>
+            </div>
           </div>
-        </section>
 
-        {/* PROJECTS SECTION */}
-        <section id="projects" className="scroll-mt-32">
-          <SectionHeading title="some things i've built" />
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {portfolioData.projects.map((project, index) => (
-              <motion.div
-                key={project.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="bg-[#112240] p-8 rounded-lg border border-slate-800 hover:-translate-y-2 transition-transform duration-300"
-              >
-                <div className="flex justify-between items-center mb-6">
-                  <svg className="w-10 h-10 text-teal-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                  </svg>
-                </div>
-                <h3 className="text-2xl font-semibold text-slate-200 mb-2">{project.title}</h3>
-                <p className="text-sm text-teal-400 mb-4">{project.subtitle}</p>
-                <p className="text-sm leading-relaxed mb-6">{project.desc}</p>
-                <div className="flex flex-wrap gap-3 mt-auto">
-                  {project.tech.map(t => (
-                    <span key={t} className="text-xs font-mono text-slate-500">{t}</span>
-                  ))}
-                </div>
-              </motion.div>
-            ))}
+          <motion.div
+            className="hero-visual"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+          >
+            <div className="visual-placeholder">
+              <svg viewBox="0 0 200 200" className="visual-icon">
+                <circle cx="100" cy="100" r="95" fill="none" stroke="currentColor" strokeWidth="2" />
+                <circle cx="100" cy="100" r="70" fill="none" stroke="currentColor" strokeWidth="1.5" opacity="0.5" />
+                <circle cx="100" cy="100" r="45" fill="none" stroke="currentColor" strokeWidth="1" opacity="0.3" />
+                <circle cx="100" cy="60" r="8" fill="currentColor" />
+                <circle cx="140" cy="100" r="8" fill="currentColor" />
+                <circle cx="60" cy="100" r="8" fill="currentColor" />
+                <circle cx="100" cy="140" r="8" fill="currentColor" />
+              </svg>
+            </div>
+          </motion.div>
+          
+        </div>
+      </section>
+
+      {/* About Section */}
+      <section className="section" id="about">
+        <SectionHeading
+          eyebrow="About"
+          title="Bridging Software & Hardware"
+          description="I am a frontend developer and IoT enthusiast, with a focus on creating systems that matter."
+        />
+
+
+        <motion.div
+          className="about-content"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.7 }}
+        >
+
+
+          <div className="about-text">
+            <p>
+              As an Electronics Engineering student at Rashtriya Raksha University, I've developed a unique blend of expertise in hardware design and modern web development. My work spans from embedded systems and IoT platforms to full-stack web applications.
+            </p>
           </div>
-        </section>
+          <div className="about-highlights">
+            <div className="highlight">
+              <span className="number">19</span>
+              <span className="label">Years Old</span>
+            </div>
+            <div className="highlight">
+              <span className="number">3+</span>
+              <span className="label">Major Projects</span>
+            </div>
+            <div className="highlight">
+              <span className="number">1</span>
+              <span className="label">Years Experience</span>
+            </div>
+          </div>
+        </motion.div>
+      </section>
 
-        {/* FOOTER */}
-        <footer className="text-center pb-8 pt-20 border-t border-slate-800/50">
-          <p className="text-sm font-mono text-slate-500 hover:text-teal-400 transition-colors">
-            Designed & built by Krishna Patel
+      {/* Experience Section */}
+      <section className="section" id="experience">
+        <SectionHeading
+          eyebrow="Experience"
+          title="Professional Journey"
+        />
+        <div className="experience-list">
+          {portfolioData.experience.map((exp) => (
+            <ExperienceItem key={exp.id} {...exp} />
+          ))}
+        </div>
+      </section>
+
+      {/* Projects Section */}
+      <section className="section" id="projects">
+        <SectionHeading
+          eyebrow="Featured Work"
+          title="Recent Projects"
+          description="A selection of projects that showcase my skills in full-stack development and IoT systems."
+        />
+        <div className="projects-grid">
+          {portfolioData.projects.map((project, index) => (
+            <ProjectCard key={project.id} {...project} index={index} />
+          ))}
+        </div>
+      </section>
+
+      {/* Skills Section */}
+      <section className="section" id="skills">
+        <SectionHeading
+          eyebrow="Skills"
+          title="Tools & Technologies"
+          description="A comprehensive overview of the technologies and tools I work with."
+        />
+        <div className="skills-grid">
+          {portfolioData.skills.map((skillGroup) => (
+            <SkillCategory key={skillGroup.category} {...skillGroup} />
+          ))}
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section className="section contact-section" id="contact">
+        <motion.div
+          className="contact-card"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.7 }}
+        >
+          <h2>Let's work together</h2>
+          <p>
+            I'm always interested in hearing about new projects and opportunities. Feel free to reach out!
           </p>
-        </footer>
+          <div className="contact-links">
+            <a href={`mailto:${portfolioData.links.email}`} className="btn btn-primary">
+              Send me an email
+            </a>
+            <a href={portfolioData.links.github} target="_blank" rel="noreferrer" className="btn btn-secondary">
+              GitHub
+            </a>
+            <a href={portfolioData.links.linkedin} target="_blank" rel="noreferrer" className="btn btn-secondary">
+              LinkedIn
+            </a>
+          </div>
+        </motion.div>
+      </section>
 
-      </div>
+      {/* Footer */}
+      <footer className="footer">
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
+          Designed & built by Krishna. Inspired by{' '}
+          <a href="" target="_blank" rel="noreferrer">
+            gazijarin.com
+          </a>
+        </motion.p>
+      </footer>
     </main>
   );
 }
