@@ -1,96 +1,396 @@
-import React, { useState } from "react";
-import Intro from "./components/Intro";
-import Experience from "./components/Experience";
-import About from "./components/About";
-import Projects from "./components/Projects";
-import HardwareProjects from "./components/HardwareProjects";
-import ProjectLog from "./components/ProjectLog";
-import Art from "./components/Art";
-import ArtGallery from "./components/ArtGallery";
-import Credits from "./components/Credits";
-import NavBar from "./components/NavBar";
-import SidebarNav from "./components/SidebarNav";
-import RobotGame from "./components/RobotGame";
-import { Routes, Route, useLocation } from "react-router-dom";
-import { useEffect } from "react";
-import "./App.css";
-import "./styles/Global.css";
-import "./styles/RobotGame.css";
+import { motion } from 'framer-motion';
+import { useState } from 'react';
+import './App.css';
 
+// Social links configuration
+const socialLinks = [
+  {
+    href: 'mailto:krishna.patel.vlsi@gmail.com',
+    label: 'Email',
+    icon: (
+      <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+        <path d="M4 6h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1Zm0 2v.3l8 5.2 8-5.2V8H4Zm16 8V10l-7.4 4.8a1 1 0 0 1-1.2 0L4 10v6h16Z" />
+      </svg>
+    ),
+  },
+  {
+    href: 'https://github.com/krishna-1528',
+    label: 'GitHub',
+    icon: (
+      <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+        <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.868-.013-1.703-2.782.603-3.369-1.343-3.369-1.343-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.89 1.529 2.341 1.547 2.914 1.182.092-.917.349-1.546.635-1.903-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z" />
+      </svg>
+    ),
+  },
+  {
+    href: 'https://www.linkedin.com/in/krishna-patel-4257582a1/',
+    label: 'LinkedIn',
+    icon: (
+      <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.475-2.236-1.986-2.236-1.081 0-1.722.731-2.004 1.438-.103.25-.129.599-.129.948v5.419h-3.554s.05-8.736 0-9.646h3.554v1.364c.429-.66 1.191-1.599 2.896-1.599 2.117 0 3.704 1.385 3.704 4.362v5.519zM5.337 9.341c-1.144 0-1.89-.761-1.89-1.712 0-.951.74-1.71 1.894-1.71 1.144 0 1.886.759 1.89 1.71 0 .951-.746 1.712-1.894 1.712zm1.959 11.111H3.349V9.806h3.947v10.646zM22.224 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.224 0z" />
+      </svg>
+    ),
+  },
+  {
+    href: 'https://x.com/Kr15is28',
+    label: 'Twitter',
+    icon: (
+      <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+      </svg>
+    ),
+  }
+];
+
+// --- YOUR UPDATED ARTIFACT DATA ---
+const portfolioData = {
+  about: "19-year-old Electronics Engineering student at Rashtriya Raksha University specializing in VLSI Design, Full-Stack Web Development, and Hardware Automation. Passionate about bridging the gap between hardware interfaces and modern web applications.",
+  experience: [
+    {
+      id: 'trinnovate',
+      title: 'Engineering Intern',
+      company: 'Trinnovate',
+      date: 'Feb 2025 - Present',
+      desc: 'Developing a full-stack visualization platform and automating data workflows for industrial motor diagnostics using Python and React.'
+    }
+  ],
+  projects: [
+    { 
+      id: 'krishi', 
+      title: 'Krishi-Path', 
+      subtitle: 'Agricultural Logistics Platform',
+      tech: ['React', 'ESP32', 'LoRaWAN', 'Edge AI'], // Formatted as array for mapping
+      desc: 'Developed an IoT "Black Box" system to monitor crop health and environmental data during transit, featuring a real-time React dashboard.' 
+    },
+    { 
+      id: 'hydro', 
+      title: 'HydroSense', 
+      subtitle: 'Smart India Hackathon 2025 (College Rank 9)',
+      tech: ['IoT', 'TinyML', 'Hardware'], // Formatted as array for mapping
+      desc: 'Led the development of an IoT microplastic sensor platform utilizing TinyML for advanced environmental monitoring.' 
+    }
+  ],
+  skills: [
+    { category: 'Web Development', items: ['React.js', 'Vite', 'Tailwind CSS', 'Framer Motion', 'UI/UX Design'] },
+    { category: 'Hardware & Scripting', items: ['Python & Selenium', 'Verilog & Xilinx Vivado'] }
+  ],
+  links: {
+    linkedin: 'https://www.linkedin.com/in/krishna-patel-4257582a1/',
+    github: 'https://github.com/krishna-1528',
+    email: 'krishna.patel.vlsi@gmail.com' // Replace with your actual email
+  }
+};
+
+
+// Component: Social Icon Link (Renamed from DottedPortrait)
+function SocialIconLink({ href, label, icon }) {
+  return (
+    <a href={href} target="_blank" rel="noreferrer" className="social-link" title={label}>
+      {icon}
+    </a>
+  );
+}
+
+// Component: Section Heading
+function SectionHeading({ eyebrow, title, description }) {
+  return (
+    <motion.div
+      className="section-heading"
+      initial={{ opacity: 0, y: 10 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: 0.5 }}
+    >
+      <p className="eyebrow">{eyebrow}</p>
+      <h2>{title}</h2>
+      {description && <p>{description}</p>}
+    </motion.div>
+  );
+}
+
+// Component: Project Card (Props mapped to match portfolioData)
+function ProjectCard({ title, subtitle, desc, tech, index }) {
+  return (
+    <motion.article
+      className="project-card"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      whileHover={{ y: -4 }}
+    >
+      <div className="project-header">
+        <div>
+          <h3>{title}</h3>
+          <p className="project-subtitle">{subtitle}</p>
+        </div>
+        <span className="project-number">0{index + 1}</span>
+      </div>
+      <p className="project-details">{desc}</p>
+      <div className="tech-tags">
+        {tech.map((t) => (
+          <span key={t} className="tech-tag">{t}</span>
+        ))}
+      </div>
+    </motion.article>
+  );
+}
+
+// Component: Experience Item (Props mapped to match portfolioData)
+function ExperienceItem({ title, company, date, desc }) {
+  return (
+    <motion.article
+      className="experience-item"
+      initial={{ opacity: 0, x: -10 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: 0.5 }}
+    >
+      <div className="experience-header">
+        <div>
+          <p className="experience-role">{title}</p>
+          <h3>{company}</h3>
+        </div>
+        <span className="experience-period">{date}</span>
+      </div>
+      <p className="experience-description">{desc}</p>
+    </motion.article>
+  );
+}
+
+// Component: Skill Category
+function SkillCategory({ category, items }) {
+  return (
+    <motion.div
+      className="skill-category"
+      initial={{ opacity: 0, y: 10 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: 0.5 }}
+    >
+      <h4>{category}</h4>
+      <div className="skill-list">
+        {items.map((skill) => (
+          <span key={skill}>{skill}</span>
+        ))}
+      </div>
+    </motion.div>
+  );
+}
+
+// Main App Component
 function App() {
-  const { pathname } = useLocation();
-  const [gameActive, setGameActive] = useState(false);
-  const [showGameInfo, setShowGameInfo] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
+  const scrollToSection = (id) => {
+    setActiveSection(id);
+    const element = document.getElementById(id);
+    element?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   return (
-    <div className="App">
-      <NavBar />
-      <div className="game-toggle-fixed">
-        <div className="game-toggle-row">
-          <button
-            className={`game-toggle-btn${gameActive ? " game-toggle-btn--on" : ""}`}
-            onClick={() => setGameActive((a) => !a)}
-            title={gameActive ? "Disable game mode" : "Enable game mode"}
+    <main className="portfolio-container">
+      {/* Background elements */}
+      <div className="gradient-bg gradient-1" />
+      <div className="gradient-bg gradient-2" />
+      <div className="dot-grid" />
+
+      {/* Navigation */}
+      <nav className="navbar">
+        <div className="nav-brand">
+          <motion.h1
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8 }}
           >
-            <span className="game-toggle-dot" />
-            game mode
-          </button>
-          {gameActive && (
-            <button
-              className="game-info-btn"
-              onMouseEnter={() => setShowGameInfo(true)}
-              onMouseLeave={() => setShowGameInfo(false)}
-            >
-              i
-            </button>
-          )}
+            Krishna
+          </motion.h1>
         </div>
-        {showGameInfo && gameActive && (
-          <div className="robot-game-info">
-            <div className="robot-game-info-title">how to play</div>
-            <div className="robot-game-info-row">
-              <span className="robot-game-key">← →</span>
-              <span>move</span>
+        <div className="nav-social">
+          {socialLinks.map((link) => (
+            <SocialIconLink key={link.label} {...link} />
+          ))}
+        </div>
+      </nav>
+
+      {/* Hero Section */}
+      <section className="hero" id="home">
+        <div className="hero-content">
+          
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            <p className="hero-subtitle">Full-Stack Developer & Hardware Enthusiast</p>
+            <h2 className="hero-title">
+              Building elegant solutions
+              <br />
+              <span className="accent">at the intersection</span>
+              <br />
+              of software and hardware
+            </h2>
+          </motion.div>
+
+          <div className="hero-copy">
+            <p className="eyebrow">Software engineer and artist</p>
+            <h1>hi, krishna here.</h1>
+            <p className="hero-text">
+              Minimal portfolio with clean typography, clear sections,
+              and enough breathing room for you to customize it your own way.
+            </p>
+
+            <div className="hero-actions">
+              <button className="button button-primary" onClick={() => scrollToSection('about')}>Say hi</button>
+              <button className="button button-secondary" onClick={() => scrollToSection('projects')}>View work</button>
             </div>
-            <div className="robot-game-info-row">
-              <span className="robot-game-key">space</span>
-              <span>jump</span>
-            </div>
-            <div className="robot-game-info-row">
-              <span className="robot-game-key">scroll</span>
-              <span>explore</span>
-            </div>
-            <div className="robot-game-info-goal">collect your scattered brain cells</div>
           </div>
-        )}
-      </div>
-      <SidebarNav />
-      <RobotGame active={gameActive} />
-      <div id="content">
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <>
-                <Intro />
-                <About />
-                <Experience />
-                <Projects />
-                <HardwareProjects />
-                <Art />
-                <Credits />
-              </>
-            }
-          />
-          <Route path="/art" element={<ArtGallery />} />
-          <Route path="/hardware/:projectId" element={<ProjectLog />} />
-        </Routes>
-      </div>
-    </div>
+
+          <motion.div
+            className="hero-visual"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+          >
+            <div className="visual-placeholder">
+              <svg viewBox="0 0 200 200" className="visual-icon">
+                <circle cx="100" cy="100" r="95" fill="none" stroke="currentColor" strokeWidth="2" />
+                <circle cx="100" cy="100" r="70" fill="none" stroke="currentColor" strokeWidth="1.5" opacity="0.5" />
+                <circle cx="100" cy="100" r="45" fill="none" stroke="currentColor" strokeWidth="1" opacity="0.3" />
+                <circle cx="100" cy="60" r="8" fill="currentColor" />
+                <circle cx="140" cy="100" r="8" fill="currentColor" />
+                <circle cx="60" cy="100" r="8" fill="currentColor" />
+                <circle cx="100" cy="140" r="8" fill="currentColor" />
+              </svg>
+            </div>
+          </motion.div>
+          
+        </div>
+      </section>
+
+      {/* About Section */}
+      <section className="section" id="about">
+        <SectionHeading
+          eyebrow="About"
+          title="Bridging Software & Hardware"
+          description="I am a frontend developer and IoT enthusiast, with a focus on creating systems that matter."
+        />
+
+
+        <motion.div
+          className="about-content"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.7 }}
+        >
+
+
+          <div className="about-text">
+            <p>
+              As an Electronics Engineering student at Rashtriya Raksha University, I've developed a unique blend of expertise in hardware design and modern web development. My work spans from embedded systems and IoT platforms to full-stack web applications.
+            </p>
+          </div>
+          <div className="about-highlights">
+            <div className="highlight">
+              <span className="number">19</span>
+              <span className="label">Years Old</span>
+            </div>
+            <div className="highlight">
+              <span className="number">3+</span>
+              <span className="label">Major Projects</span>
+            </div>
+            <div className="highlight">
+              <span className="number">1</span>
+              <span className="label">Years Experience</span>
+            </div>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* Experience Section */}
+      <section className="section" id="experience">
+        <SectionHeading
+          eyebrow="Experience"
+          title="Professional Journey"
+        />
+        <div className="experience-list">
+          {portfolioData.experience.map((exp) => (
+            <ExperienceItem key={exp.id} {...exp} />
+          ))}
+        </div>
+      </section>
+
+      {/* Projects Section */}
+      <section className="section" id="projects">
+        <SectionHeading
+          eyebrow="Featured Work"
+          title="Recent Projects"
+          description="A selection of projects that showcase my skills in full-stack development and IoT systems."
+        />
+        <div className="projects-grid">
+          {portfolioData.projects.map((project, index) => (
+            <ProjectCard key={project.id} {...project} index={index} />
+          ))}
+        </div>
+      </section>
+
+      {/* Skills Section */}
+      <section className="section" id="skills">
+        <SectionHeading
+          eyebrow="Skills"
+          title="Tools & Technologies"
+          description="A comprehensive overview of the technologies and tools I work with."
+        />
+        <div className="skills-grid">
+          {portfolioData.skills.map((skillGroup) => (
+            <SkillCategory key={skillGroup.category} {...skillGroup} />
+          ))}
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section className="section contact-section" id="contact">
+        <motion.div
+          className="contact-card"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.7 }}
+        >
+          <h2>Let's work together</h2>
+          <p>
+            I'm always interested in hearing about new projects and opportunities. Feel free to reach out!
+          </p>
+          <div className="contact-links">
+            <a href={`mailto:${portfolioData.links.email}`} className="btn btn-primary">
+              Send me an email
+            </a>
+            <a href={portfolioData.links.github} target="_blank" rel="noreferrer" className="btn btn-secondary">
+              GitHub
+            </a>
+            <a href={portfolioData.links.linkedin} target="_blank" rel="noreferrer" className="btn btn-secondary">
+              LinkedIn
+            </a>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* Footer */}
+      <footer className="footer">
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
+          Designed & built by Krishna. Inspired by{' '}
+          <a href="" target="_blank" rel="noreferrer">
+            gazijarin.com
+          </a>
+        </motion.p>
+      </footer>
+    </main>
   );
 }
 
