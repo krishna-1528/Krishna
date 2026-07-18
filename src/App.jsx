@@ -247,9 +247,10 @@ function App() {
               className="md:w-2/5 relative group"
             >
               {/* CLEAN PROFILE IMAGE */}
+{/* SIMPLE SOLID IMAGE */}
 <div className="relative w-64 h-64 mx-auto md:ml-auto">
   <img 
-    src="/profile.jpg" 
+    src="/profile.jpeg" 
     alt="Krishna"
     className="w-full h-full object-cover rounded-2xl shadow-xl"
   />
