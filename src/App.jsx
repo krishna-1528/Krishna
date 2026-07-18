@@ -246,14 +246,14 @@ function App() {
               viewport={{ once: true }}
               className="md:w-2/5 relative group"
             >
-              <div className="relative w-64 h-64 mx-auto md:ml-auto border-2 border-[var(--green)] rounded transition-transform group-hover:-translate-x-2 group-hover:-translate-y-2">
-                <div className="absolute inset-0 bg-[var(--navy)]/80 group-hover:bg-transparent transition-colors z-10"></div>
-                <img 
-                  src="profile.jpeg" 
-                  alt="Tech Avatar"
-                  className="w-full h-full object-cover rounded opacity-80"
-                />
-              </div>
+              {/* CLEAN PROFILE IMAGE */}
+<div className="relative w-64 h-64 mx-auto md:ml-auto">
+  <img 
+    src="/profile.jpg" 
+    alt="Krishna"
+    className="w-full h-full object-cover rounded-2xl shadow-xl"
+  />
+</div>
               <div className="absolute top-4 left-4 md:left-auto md:-right-4 w-64 h-64 border-2 border-[var(--green)] rounded -z-10 transition-transform group-hover:translate-x-2 group-hover:translate-y-2"></div>
             </motion.div>
           </div>
