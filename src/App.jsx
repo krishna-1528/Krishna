@@ -91,24 +91,20 @@ function TypewriterHeading() {
     return () => clearInterval(typingInterval);
   }, []);
 
-  // Split the text dynamically to apply the green color to "krishna"
   const part1 = text.slice(0, 4); // "hi, "
   const part2 = text.slice(4, 11); // "krishna"
   const part3 = text.slice(11); // " here."
 
   return (
-    <h1 className="text-5xl sm:text-6xl md:text-8xl font-bold text-[var(--lightest-slate)] tracking-tight mb-4 flex items-center flex-wrap">
-      <span>
-        {part1}
-        {part2 && <span className="text-[var(--green)]">{part2}</span>}
-        {part3 && <span>{part3}</span>}
-      </span>
-      {/* Blinking Cursor */}
+    <h1 className="text-5xl sm:text-6xl md:text-8xl font-bold text-[var(--lightest-slate)] tracking-tight mb-8">
+      {part1}
+      {part2 && <span className="text-[var(--green)]">{part2}</span>}
+      {part3 && <span>{part3}</span>}
+      {/* Blinking Cursor fixed inline without flexwrap */}
       <motion.span
         animate={{ opacity: [1, 0, 1] }}
         transition={{ repeat: Infinity, duration: 0.9, ease: "linear" }}
-        className="inline-block w-[4px] md:w-[6px] h-[0.9em] bg-white ml-2 md:ml-3 rounded-sm"
-        style={{ position: 'relative', top: '0.05em' }}
+        className="inline-block w-[4px] md:w-[6px] h-[0.9em] bg-white ml-1 align-baseline"
       />
     </h1>
   );
@@ -186,33 +182,29 @@ function App() {
         {/* HERO SECTION */}
         <section id="home" className="min-h-screen flex flex-col justify-center items-start pt-20">
           
-          {/* Custom Typewriter Heading Component */}
           <TypewriterHeading />
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 1.5 }} // Delayed so it appears after typing finishes
+            transition={{ duration: 0.5, delay: 1.5 }} 
+            className="text-[var(--slate)] text-lg md:text-xl max-w-2xl leading-relaxed mb-12"
           >
-            <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold leading-tight mb-8 mt-2 text-transparent bg-clip-text bg-gradient-to-r from-[var(--green)] to-blue-400 pb-2">
-              Building elegant solutions at the intersection of software and hardware.
-            </h2>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 1.6 }}
-          >
-            <p className="text-[var(--slate)] text-lg md:text-xl max-w-2xl leading-relaxed mb-12">
-              Software engineer and hardware enthusiast based in Gujarat. I specialize in building exceptional digital experiences, routing signals, and structuring modern web architectures.
+            <p className="mb-4">
+              <span className="text-[var(--green)] font-mono text-sm">/* About me */</span>
+            </p>
+            <p className="mb-4 text-[var(--light-slate)]">
+              Undergrad at <strong className="text-[var(--white)] font-bold">Rashtriya Raksha University</strong>.
+            </p>
+            <p>
+              I turn excessive amounts of coffee into working code, bridge hardware with full-stack apps, and convince silicon to do my bidding without catching fire. <span className="italic">If my code compiles on the first try, I get highly suspicious.</span>
             </p>
           </motion.div>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 1.7 }}
+            transition={{ duration: 0.5, delay: 1.6 }}
           >
             <a href="mailto:krishna.patel.vlsi@gmail.com" className="inline-block px-8 py-4 border border-[var(--green)] text-[var(--green)] bg-transparent rounded font-mono text-sm hover:bg-[var(--green)]/10 transition-colors">
               Say hi!
