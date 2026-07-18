@@ -46,10 +46,16 @@
           </div>
         </section>
 
-        {/* FOOTER - Ensure this is included at the end of your container */}
+        {/* FOOTER */}
         <footer className="text-center py-6 pb-12">
           <p className="font-mono text-[13px] text-[var(--slate)] hover:text-[var(--green)] transition-colors cursor-pointer">
             Built by Krishna Patel
           </p>
         </footer>
-        
+
+      </div>
+    </main>
+  );
+}
+
+export default App;
