@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css'; 
 
 const socialLinks = [
@@ -73,6 +73,47 @@ const portfolioData = {
   ]
 };
 
+// Component: Custom Typewriter Heading
+function TypewriterHeading() {
+  const fullText = "hi, krishna here.";
+  const [text, setText] = useState("");
+
+  useEffect(() => {
+    let i = 0;
+    const typingInterval = setInterval(() => {
+      if (i < fullText.length) {
+        setText(fullText.slice(0, i + 1));
+        i++;
+      } else {
+        clearInterval(typingInterval);
+      }
+    }, 120); // Typing speed in milliseconds
+    return () => clearInterval(typingInterval);
+  }, []);
+
+  // Split the text dynamically to apply the green color to "krishna"
+  const part1 = text.slice(0, 4); // "hi, "
+  const part2 = text.slice(4, 11); // "krishna"
+  const part3 = text.slice(11); // " here."
+
+  return (
+    <h1 className="text-5xl sm:text-6xl md:text-8xl font-bold text-[var(--lightest-slate)] tracking-tight mb-4 flex items-center flex-wrap">
+      <span>
+        {part1}
+        {part2 && <span className="text-[var(--green)]">{part2}</span>}
+        {part3 && <span>{part3}</span>}
+      </span>
+      {/* Blinking Cursor */}
+      <motion.span
+        animate={{ opacity: [1, 0, 1] }}
+        transition={{ repeat: Infinity, duration: 0.9, ease: "linear" }}
+        className="inline-block w-[4px] md:w-[6px] h-[0.9em] bg-white ml-2 md:ml-3 rounded-sm"
+        style={{ position: 'relative', top: '0.05em' }}
+      />
+    </h1>
+  );
+}
+
 // Reusable Monospace Section Heading
 function SectionHeading({ title, number }) {
   return (
@@ -144,20 +185,14 @@ function App() {
         
         {/* HERO SECTION */}
         <section id="home" className="min-h-screen flex flex-col justify-center items-start pt-20">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-          >
-            <h1 className="text-5xl sm:text-6xl md:text-8xl font-bold text-[var(--lightest-slate)] tracking-tight mb-4">
-              hi, <span className="text-[var(--green)]">krishna</span> here.
-            </h1>
-          </motion.div>
+          
+          {/* Custom Typewriter Heading Component */}
+          <TypewriterHeading />
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+            transition={{ duration: 0.5, delay: 1.5 }} // Delayed so it appears after typing finishes
           >
             <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold leading-tight mb-8 mt-2 text-transparent bg-clip-text bg-gradient-to-r from-[var(--green)] to-blue-400 pb-2">
               Building elegant solutions at the intersection of software and hardware.
@@ -167,7 +202,7 @@ function App() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
+            transition={{ duration: 0.5, delay: 1.6 }}
           >
             <p className="text-[var(--slate)] text-lg md:text-xl max-w-2xl leading-relaxed mb-12">
               Software engineer and hardware enthusiast based in Gujarat. I specialize in building exceptional digital experiences, routing signals, and structuring modern web architectures.
@@ -177,7 +212,7 @@ function App() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
+            transition={{ duration: 0.5, delay: 1.7 }}
           >
             <a href="mailto:krishna.patel.vlsi@gmail.com" className="inline-block px-8 py-4 border border-[var(--green)] text-[var(--green)] bg-transparent rounded font-mono text-sm hover:bg-[var(--green)]/10 transition-colors">
               Say hi!
