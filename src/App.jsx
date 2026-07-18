@@ -239,20 +239,7 @@ function App() {
                 ))}
               </ul>
             </motion.div>
-{/* PROFILE IMAGE SECTION */}
-<div className="relative w-64 h-64 mx-auto md:ml-auto group">
-  {/* Green border container */}
-  <div className="relative w-full h-full border-2 border-[var(--green)] rounded transition-transform group-hover:-translate-x-2 group-hover:-translate-y-2">
-    <div className="absolute inset-0 bg-[var(--green)]/20 group-hover:bg-transparent transition-colors z-10"></div>
-    <img 
-      src="/profile.jpg" 
-      alt="Krishna"
-      className="w-full h-full object-cover rounded"
-    />
-  </div>
-  {/* Decorative background border */}
-  <div className="absolute top-4 left-4 w-full h-full border-2 border-[var(--green)] rounded -z-10 transition-transform group-hover:translate-x-2 group-hover:translate-y-2"></div>
-</div>
+
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
@@ -262,7 +249,7 @@ function App() {
               <div className="relative w-64 h-64 mx-auto md:ml-auto border-2 border-[var(--green)] rounded transition-transform group-hover:-translate-x-2 group-hover:-translate-y-2">
                 <div className="absolute inset-0 bg-[var(--navy)]/80 group-hover:bg-transparent transition-colors z-10"></div>
                 <img 
-                  src="/image_2c7b87.png" 
+                  src="profile.jpg" 
                   alt="Tech Avatar"
                   className="w-full h-full object-cover rounded opacity-80"
                 />
