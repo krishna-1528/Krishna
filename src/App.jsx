@@ -249,7 +249,7 @@ function App() {
               <div className="relative w-64 h-64 mx-auto md:ml-auto border-2 border-[var(--green)] rounded transition-transform group-hover:-translate-x-2 group-hover:-translate-y-2">
                 <div className="absolute inset-0 bg-[var(--navy)]/80 group-hover:bg-transparent transition-colors z-10"></div>
                 <img 
-                  src="profile.jpg" 
+                  src="profile.jpeg" 
                   alt="Tech Avatar"
                   className="w-full h-full object-cover rounded opacity-80"
                 />
