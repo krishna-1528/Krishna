@@ -2,7 +2,6 @@ import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import './App.css'; 
 
-// All your data, components, and functions stay here as they were
 const socialLinks = [
   { href: 'mailto:krishna.patel.vlsi@gmail.com', label: 'Email' },
   { href: 'https://github.com/krishna-1528', label: 'GitHub' },
@@ -35,7 +34,6 @@ function TypewriterHeading() {
     }, 120);
     return () => clearInterval(typingInterval);
   }, []);
-
   return (
     <h1 className="text-5xl sm:text-6xl md:text-8xl font-bold text-[var(--lightest-slate)] tracking-tight mb-8">
       {text.slice(0, 4)}<span className="text-[var(--green)]">{text.slice(4, 11)}</span>{text.slice(11)}
@@ -61,7 +59,6 @@ function App() {
     <main className="min-h-screen bg-[var(--navy)]">
       <div className="max-w-[1000px] mx-auto px-6 sm:px-12 md:px-24 min-h-screen">
         
-        {/* HERO */}
         <section id="home" className="min-h-screen flex flex-col justify-center items-start pt-20">
           <TypewriterHeading />
           <div className="text-[var(--slate)] text-lg md:text-xl max-w-2xl leading-relaxed mb-12">
@@ -70,7 +67,6 @@ function App() {
           </div>
         </section>
 
-        {/* ABOUT */}
         <section id="about" className="py-24 max-w-[900px]">
           <SectionHeading number="01" title="About Me" />
           <div className="flex flex-col md:flex-row gap-12">
@@ -82,7 +78,7 @@ function App() {
                 ))}
               </ul>
             </div>
-            <div className="md:w-2/5 relative group">
+            <div className="md:w-2/5 relative">
               <div className="relative w-64 h-64 mx-auto md:ml-auto border-2 border-[var(--green)] rounded">
                 <img src="/profile.jpg" alt="Krishna" className="w-full h-full object-cover rounded" />
               </div>
@@ -90,7 +86,32 @@ function App() {
           </div>
         </section>
 
-        {/* FOOTER */}
+        <section id="experience" className="py-24 max-w-[700px]">
+          <SectionHeading number="02" title="Experience" />
+          {portfolioData.experience.map(exp => (
+            <div key={exp.id} className="mb-10">
+              <h3 className="text-xl text-[var(--lightest-slate)]">{exp.title} <span className="text-[var(--green)]">@ {exp.company}</span></h3>
+              <p className="font-mono text-[13px] text-[var(--light-slate)]">{exp.date}</p>
+              <p className="mt-4 text-[var(--slate)]">{exp.desc}</p>
+            </div>
+          ))}
+        </section>
+
+        <section id="projects" className="py-24">
+          <SectionHeading number="03" title="Projects" />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {portfolioData.projects.map(p => (
+              <div key={p.id} className="bg-[var(--light-navy)] p-8 rounded shadow-lg">
+                <h3 className="text-xl font-semibold text-[var(--lightest-slate)] mb-4">{p.title}</h3>
+                <p className="text-[var(--slate)] mb-4">{p.desc}</p>
+                <div className="flex flex-wrap gap-2 font-mono text-[12px] text-[var(--light-slate)]">
+                  {p.tech.map(t => <span key={t}>{t}</span>)}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
         <footer className="text-center py-6 pb-12">
           <p className="font-mono text-[13px] text-[var(--slate)]">Built by Krishna Patel</p>
         </footer>
