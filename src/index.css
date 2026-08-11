@@ -17,7 +17,7 @@ html {
 }
 
 body {
-  background-color: var(--navy);
+  background-color: var(--smokywhite);
   color: var(--slate);
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   margin: 0;
