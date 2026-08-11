@@ -47,11 +47,18 @@ const portfolioData = {
       id: 'trinnovate',
       title: 'Engineering Intern',
       company: 'Trinnovate',
-      date: 'Feb 2025 - Present',
-      desc: 'Developing a full-stack visualization platform and automating data workflows for industrial motor diagnostics using Python and React.'
+      date: 'Feb 2025 - April 2026',
+      desc: 'Automating data workflows for industrial motor diagnostics using Python and React.'
     }
   ],
   projects: [
+    { 
+      id: 'UART', 
+      title: 'VIVADO UART IP Core', 
+      subtitle: 'UART IP Core for Xilinx Vivado',
+      tech: ['Verilog', 'UART Fundamentals'], 
+    },
+
     { 
       id: 'krishi', 
       title: 'Krishi-Path', 
@@ -62,12 +69,13 @@ const portfolioData = {
     { 
       id: 'hydro', 
       title: 'HydroSense', 
-      subtitle: 'Smart India Hackathon 2025 (Rank 9)',
+      subtitle: 'Smart India Hackathon 2025 (College Rank 9)',
       tech: ['IoT', 'TinyML', 'Hardware'], 
       desc: 'Led the development of an IoT microplastic sensor platform utilizing TinyML for advanced environmental monitoring.' 
     }
   ],
   skills: [
+    {category: 'Programming & Scripting', items: ['Python', 'JavaScript', 'C', 'C++', 'Verilog']},
     { category: 'Development & Design', items: ['Web Development', 'Design', 'Video Editing', 'React.js'] },
     { category: 'Hardware & Automation', items: ['Python', 'Selenium', 'Verilog', 'Xilinx Vivado'] }
   ]
